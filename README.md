@@ -2,6 +2,101 @@
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
+## Open Trivia Database
+
+### Getting Started
+
+To get started using the Open Trivia DB API, use this URL:
+
+```
+https://opentdb.com/api.php?amount=10
+```
+
+For more settings or help using the API, read along below.
+
+### Session Tokens
+
+Session Tokens are unique keys that help keep track of the questions the API has already retrieved. By appending a Session Token to an API call, the API will never give you the same question twice.
+
+**Note:** Session Tokens will be deleted after 6 hours of inactivity.
+
+**Using a Session Token:**
+
+```
+https://opentdb.com/api.php?amount=10&token=YOURTOKENHERE
+```
+
+**Retrieve a Session Token:**
+
+```
+https://opentdb.com/api_token.php?command=request
+```
+
+**Reset a Session Token:**
+
+```
+https://opentdb.com/api_token.php?command=reset&token=YOURTOKENHERE
+```
+
+### Response Codes
+
+The API appends a "Response Code" to each API call:
+
+- **Code 0:** Success - Results returned successfully
+- **Code 1:** No Results - Not enough questions for your query
+- **Code 2:** Invalid Parameter - Arguments passed aren't valid
+- **Code 3:** Token Not Found - Session Token does not exist
+- **Code 4:** Token Empty - Token has returned all possible questions, reset required
+- **Code 5:** Rate Limit - Too many requests (max 1 request per 5 seconds per IP)
+
+### Encoding Types
+
+The API returns results in an encoded format to handle Unicode and special characters.
+
+**API Call with Encode Type:**
+
+```
+https://opentdb.com/api.php?amount=10&encode=url3986
+```
+
+**Example Sentence:** `"Don't forget that π = 3.14 & doesn't equal 3."`
+
+- **Default (HTML Codes):** `Don&#039;t forget that &pi; = 3.14 &amp; doesn&#039;t equal 3.`
+- **Legacy URL Encoding:** `Don%27t+forget+that+%CF%80+%3D+3.14+%26+doesn%27t+equal+3.`
+- **URL Encoding (RFC 3986):** `Don%27t%20forget%20that%20%CF%80%20%3D%203.14%20%26%20doesn%27t%20equal%203.`
+- **Base64 Encoding:** `RG9uJ3QgZm9yZ2V0IHRoYXQgz4AgPSAzLjE0ICYgZG9lc24ndCBlcXVhbCAzLg==`
+
+### Helper API Tools
+
+**Category Lookup** - Returns the entire list of categories and IDs:
+
+```
+https://opentdb.com/api_category.php
+```
+
+**Category Question Count** - Returns the number of questions in a specific category:
+
+```
+https://opentdb.com/api_count.php?category=CATEGORY_ID_HERE
+```
+
+**Global Question Count** - Returns the total number of questions in the database:
+
+```
+https://opentdb.com/api_count_global.php
+```
+
+### Limitations
+
+- Only 1 category can be requested per API call
+- Maximum of 50 questions can be retrieved per call
+
+### Example API Call
+
+```
+https://opentdb.com/api.php?amount=10&category=9&difficulty=medium&type=multiple
+```
+
 ## Fonts and Icons
 
 This project includes:
