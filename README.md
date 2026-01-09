@@ -1,6 +1,124 @@
-# React + Vite
+# Quizzical - Interactive Trivia Quiz App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern, mobile-first trivia quiz application built with React and Vite. Test your knowledge with questions from the Open Trivia Database across various categories and difficulty levels.
+
+## ✨ Features
+
+- **10 Questions Per Quiz** - Curated trivia questions from multiple categories
+- **Difficulty Indicators** - Visual icons showing Easy (💡), Medium (◐), and Hard (💀) questions
+- **Interactive UI** - Select answers, check your results, and see correct/incorrect feedback
+- **Smart Session Management** - Automatic token handling ensures you never see duplicate questions
+- **Mobile-First Design** - Optimized for mobile with responsive layout and compact header (60px)
+- **Answer Validation** - Color-coded feedback with green for correct and orange for incorrect answers
+- **Score Tracking** - Real-time score display in the header
+- **Continuous Play** - "Next" button to load new questions seamlessly
+- **Clean Typography** - Using Montserrat font family for excellent readability
+- **HTML Entity Decoding** - Properly formatted questions and answers using the `he` package
+
+## 🚀 Live Demo
+
+[View Live App](#) _(Add your Netlify URL here after deployment)_
+
+## 📦 Tech Stack
+
+- **React 19.2.0** - Modern UI library
+- **Vite 7.2.4** - Lightning-fast build tool
+- **Font Awesome 6.5.1** - Icon library for difficulty indicators
+- **he** - HTML entity decoder for clean text display
+- **Open Trivia DB API** - Question database with session token support
+
+## 🛠️ Installation & Setup
+
+1. **Clone the repository:**
+
+   ```bash
+   git clone <your-repo-url>
+   cd scrimba-quizzical-app
+   ```
+
+2. **Install dependencies:**
+
+   ```bash
+   npm install
+   ```
+
+3. **Start development server:**
+
+   ```bash
+   npm run dev
+   ```
+
+4. **Build for production:**
+
+   ```bash
+   npm run build
+   ```
+
+5. **Preview production build:**
+   ```bash
+   npm run preview
+   ```
+
+## 🌐 Deployment to Netlify
+
+This app is ready for deployment to Netlify. Follow these steps:
+
+### Option 1: Deploy via Netlify UI
+
+1. Build your app locally:
+
+   ```bash
+   npm run build
+   ```
+
+2. Go to [Netlify](https://app.netlify.com/) and sign in
+3. Click "Add new site" > "Deploy manually"
+4. Drag and drop the `dist` folder to deploy
+
+### Option 2: Deploy via Git (Recommended)
+
+1. Push your code to GitHub/GitLab/Bitbucket
+2. In Netlify, click "Add new site" > "Import an existing project"
+3. Connect your repository
+4. Configure build settings:
+   - **Build command:** `npm run build`
+   - **Publish directory:** `dist`
+5. Click "Deploy site"
+
+### Option 3: Netlify CLI
+
+1. Install Netlify CLI:
+
+   ```bash
+   npm install -g netlify-cli
+   ```
+
+2. Build and deploy:
+   ```bash
+   npm run build
+   netlify deploy --prod --dir=dist
+   ```
+
+### 📝 Additional Netlify Configuration (Optional)
+
+For better SPA routing support, create a `public/_redirects` file:
+
+```
+/*    /index.html   200
+```
+
+Or create a `netlify.toml` file in the root:
+
+```toml
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+```
 
 ## Open Trivia Database
 
