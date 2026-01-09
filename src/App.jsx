@@ -35,9 +35,45 @@ function App() {
   function handleStartQuiz() {
     if (!quizStarted) {
       setQuizStarted(true);
-    } else {
+    } else if (!answersChecked) {
       // Check answers
       setAnswersChecked(true);
+    } else {
+      // Load next questions
+      fetchNewQuestions();
+    }
+  }
+
+  // Function to fetch new questions
+  async function fetchNewQuestions() {
+    try {
+      setLoading(true);
+      setError(null);
+      setAnswersChecked(false);
+      setSelectedAnswers({});
+
+      const response = await fetch(
+        `https://opentdb.com/api.php?amount=10&token=${sessionToken}`
+      );
+      const data = await response.json();
+
+      if (data.response_code === 0) {
+        const triviaWithShuffledAnswers = data.results.map((item) => ({
+          ...item,
+          shuffledAnswers: [
+            ...item.incorrect_answers,
+            item.correct_answer,
+          ].sort(() => Math.random() - 0.5),
+        }));
+        setTrivia(triviaWithShuffledAnswers);
+      } else {
+        throw new Error(`API Error: Response code ${data.response_code}`);
+      }
+    } catch (error) {
+      console.error("Error fetching questions:", error);
+      setError("Failed to fetch questions. Please try again.");
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -154,6 +190,8 @@ function App() {
           quizStarted={quizStarted}
           onStartQuiz={handleStartQuiz}
           answersChecked={answersChecked}
+          score={score}
+          totalQuestions={trivia.length}
         />
         <div className="main-content">
           <Loading />
@@ -170,6 +208,8 @@ function App() {
           quizStarted={quizStarted}
           onStartQuiz={handleStartQuiz}
           answersChecked={answersChecked}
+          score={score}
+          totalQuestions={trivia.length}
         />
         <div className="main-content">
           <Error message={error} />
@@ -184,20 +224,11 @@ function App() {
         quizStarted={quizStarted}
         onStartQuiz={handleStartQuiz}
         answersChecked={answersChecked}
+        score={score}
+        totalQuestions={trivia.length}
       />
       <div className="main-content">
-        {!quizStarted ? (
-          <Instructions />
-        ) : (
-          <>
-            {multipleChoiceElements}
-            {answersChecked && (
-              <div className="score">
-                You scored {score}/{trivia.length} correct answers!
-              </div>
-            )}
-          </>
-        )}
+        {!quizStarted ? <Instructions /> : multipleChoiceElements}
       </div>
     </div>
   );
