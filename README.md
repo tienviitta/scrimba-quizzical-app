@@ -38,6 +38,19 @@ https://opentdb.com/api_token.php?command=request
 https://opentdb.com/api_token.php?command=reset&token=YOURTOKENHERE
 ```
 
+#### Implementation in This App
+
+This Quizzical App includes automatic session token management:
+
+- **Automatic Token Retrieval:** When the app loads, it automatically requests a session token from the API
+- **Persistent Storage:** Tokens are stored in localStorage and persist across browser sessions
+- **Expiration Handling:** The app tracks token timestamps and automatically requests a new token after 6 hours of inactivity
+- **Duplicate Prevention:** With session tokens, you'll never see the same question twice during a session
+- **Token Reset:** A "Reset Session & Get New Questions" button allows you to reset your token when all questions are exhausted or when you want a fresh start
+- **Automatic Reset:** If the API indicates all questions have been used (Response Code 4), the app automatically resets the token
+
+The session token is seamlessly integrated into all API calls, ensuring a better user experience without manual token management.
+
 ### Response Codes
 
 The API appends a "Response Code" to each API call:
