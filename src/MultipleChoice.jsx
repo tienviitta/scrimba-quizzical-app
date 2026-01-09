@@ -1,4 +1,5 @@
 // import { useState } from "react";
+import he from "he";
 
 export default function MultipleChoice({
   trivia,
@@ -40,16 +41,13 @@ export default function MultipleChoice({
       onClick={() => handleAnswerClick(answer)}
       disabled={answersChecked}
     >
-      {answer}
+      {he.decode(answer)}
     </button>
   ));
 
   return (
     <div className="multiple-choice">
-      <div
-        className="question"
-        dangerouslySetInnerHTML={{ __html: trivia.question }}
-      />
+      <div className="question">{he.decode(trivia.question)}</div>
       <div className="answers">{answerButtons}</div>
     </div>
   );
