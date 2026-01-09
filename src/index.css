@@ -245,6 +245,39 @@ button:active {
   padding-top: 80px;
 }
 
+.instructions {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-gray-light);
+  gap: var(--spacing-md);
+  padding: var(--spacing-lg);
+  border-bottom: 1px solid var(--color-orange);
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.instructions h2 {
+  color: var(--color-primary);
+  font-size: 1.75rem;
+  margin-bottom: var(--spacing-sm);
+}
+
+.instructions p {
+  font-size: 1.125rem;
+  color: var(--color-text);
+}
+
+.instructions ul {
+  list-style-position: inside;
+  padding-left: var(--spacing-sm);
+}
+
+.instructions li {
+  font-size: 1rem;
+  color: var(--color-text);
+  margin-bottom: var(--spacing-xs);
+}
+
 /* ===========================
    Multiple Choice Styles
    =========================== */

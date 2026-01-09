@@ -24,6 +24,12 @@ function App() {
   const [sessionToken, setSessionToken] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [quizStarted, setQuizStarted] = useState(false);
+
+  // Handler to start quiz
+  function handleStartQuiz() {
+    setQuizStarted(true);
+  }
 
   // Get or create session token
   useEffect(() => {
@@ -110,7 +116,7 @@ function App() {
   if (loading) {
     return (
       <div>
-        <Header />
+        <Header quizStarted={quizStarted} onStartQuiz={handleStartQuiz} />
         <div className="main-content">
           <div style={{ textAlign: "center", padding: "2rem" }}>
             Loading questions...
@@ -124,7 +130,7 @@ function App() {
   if (error) {
     return (
       <div>
-        <Header />
+        <Header quizStarted={quizStarted} onStartQuiz={handleStartQuiz} />
         <div className="main-content">
           <div style={{ textAlign: "center", padding: "2rem", color: "red" }}>
             {error}
@@ -136,8 +142,25 @@ function App() {
 
   return (
     <div>
-      <Header />
-      <div className="main-content">{multipleChoiceElements}</div>
+      <Header quizStarted={quizStarted} onStartQuiz={handleStartQuiz} />
+      <div className="main-content">
+        {!quizStarted ? (
+          <div className="instructions">
+            <h2>Welcome to Quizzical!</h2>
+            <p>
+              Test your knowledge with 10 trivia questions from various
+              categories.
+            </p>
+            <ul>
+              <li>Click an answer to select it</li>
+              <li>Click "Check" when you're ready to see your results</li>
+              <li>Good luck!</li>
+            </ul>
+          </div>
+        ) : (
+          multipleChoiceElements
+        )}
+      </div>
     </div>
   );
 }
