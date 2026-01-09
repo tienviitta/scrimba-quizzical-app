@@ -1,12 +1,17 @@
-export default function MultipleChoice() {
+export default function MultipleChoice({ trivia }) {
+  const answerButtons = trivia.shuffledAnswers.map((answer, index) => (
+    <button key={index} className="answer-btn">
+      {answer}
+    </button>
+  ));
+
   return (
-    <header>
-      <span>Question</span>
-      <span>Answer</span>
-      <span>Answer</span>
-      <span>Answer</span>
-      <span>Answer</span>
-      <span>Answer</span>
-    </header>
+    <div className="multiple-choice">
+      <div
+        className="question"
+        dangerouslySetInnerHTML={{ __html: trivia.question }}
+      />
+      <div className="answers">{answerButtons}</div>
+    </div>
   );
 }

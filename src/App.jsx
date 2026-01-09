@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import Header from "./Header";
+import MultipleChoice from "./MultipleChoice";
 
 /**
  * Main application component for a trivia quiz app.
@@ -102,12 +103,7 @@ function App() {
 
   // Elements
   const multipleChoiceElements = trivia.map((item, index) => {
-    return (
-      <div key={index}>
-        <span>{item.question}</span>
-        <span>{item.shuffledAnswers.join(", ")}</span>
-      </div>
-    );
+    return <MultipleChoice key={index} trivia={item} />;
   });
 
   // Show loading state
@@ -115,8 +111,10 @@ function App() {
     return (
       <div>
         <Header />
-        <div style={{ textAlign: "center", padding: "2rem" }}>
-          Loading questions...
+        <div className="main-content">
+          <div style={{ textAlign: "center", padding: "2rem" }}>
+            Loading questions...
+          </div>
         </div>
       </div>
     );
@@ -127,8 +125,10 @@ function App() {
     return (
       <div>
         <Header />
-        <div style={{ textAlign: "center", padding: "2rem", color: "red" }}>
-          {error}
+        <div className="main-content">
+          <div style={{ textAlign: "center", padding: "2rem", color: "red" }}>
+            {error}
+          </div>
         </div>
       </div>
     );
@@ -137,7 +137,7 @@ function App() {
   return (
     <div>
       <Header />
-      {multipleChoiceElements}
+      <div className="main-content">{multipleChoiceElements}</div>
     </div>
   );
 }

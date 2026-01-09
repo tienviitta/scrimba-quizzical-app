@@ -1,8 +1,8 @@
 export default function Header() {
   return (
-    <header>
+    <header className="header">
       <span>Quizzical</span>
-      <span>Start</span>
+      <button className="btn-start">Start</button>
     </header>
   );
 }
