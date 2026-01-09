@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 import Header from "./Header";
 import MultipleChoice from "./MultipleChoice";
+import Loading from "./Loading";
+import Error from "./Error";
+import Instructions from "./Instructions";
 
 /**
  * Main application component for a trivia quiz app.
@@ -25,11 +28,33 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [quizStarted, setQuizStarted] = useState(false);
+  const [answersChecked, setAnswersChecked] = useState(false);
+  const [selectedAnswers, setSelectedAnswers] = useState({});
 
   // Handler to start quiz
   function handleStartQuiz() {
-    setQuizStarted(true);
+    if (!quizStarted) {
+      setQuizStarted(true);
+    } else {
+      // Check answers
+      setAnswersChecked(true);
+    }
   }
+
+  // Handler to update selected answer for a question
+  function handleAnswerSelect(questionIndex, answer) {
+    setSelectedAnswers((prev) => ({
+      ...prev,
+      [questionIndex]: answer,
+    }));
+  }
+
+  // Calculate score
+  const score = answersChecked
+    ? trivia.filter(
+        (item, index) => selectedAnswers[index] === item.correct_answer
+      ).length
+    : 0;
 
   // Get or create session token
   useEffect(() => {
@@ -109,18 +134,29 @@ function App() {
 
   // Elements
   const multipleChoiceElements = trivia.map((item, index) => {
-    return <MultipleChoice key={index} trivia={item} />;
+    return (
+      <MultipleChoice
+        key={index}
+        trivia={item}
+        questionIndex={index}
+        selectedAnswer={selectedAnswers[index]}
+        onAnswerSelect={handleAnswerSelect}
+        answersChecked={answersChecked}
+      />
+    );
   });
 
   // Show loading state
   if (loading) {
     return (
       <div>
-        <Header quizStarted={quizStarted} onStartQuiz={handleStartQuiz} />
+        <Header
+          quizStarted={quizStarted}
+          onStartQuiz={handleStartQuiz}
+          answersChecked={answersChecked}
+        />
         <div className="main-content">
-          <div style={{ textAlign: "center", padding: "2rem" }}>
-            Loading questions...
-          </div>
+          <Loading />
         </div>
       </div>
     );
@@ -130,11 +166,13 @@ function App() {
   if (error) {
     return (
       <div>
-        <Header quizStarted={quizStarted} onStartQuiz={handleStartQuiz} />
+        <Header
+          quizStarted={quizStarted}
+          onStartQuiz={handleStartQuiz}
+          answersChecked={answersChecked}
+        />
         <div className="main-content">
-          <div style={{ textAlign: "center", padding: "2rem", color: "red" }}>
-            {error}
-          </div>
+          <Error message={error} />
         </div>
       </div>
     );
@@ -142,23 +180,23 @@ function App() {
 
   return (
     <div>
-      <Header quizStarted={quizStarted} onStartQuiz={handleStartQuiz} />
+      <Header
+        quizStarted={quizStarted}
+        onStartQuiz={handleStartQuiz}
+        answersChecked={answersChecked}
+      />
       <div className="main-content">
         {!quizStarted ? (
-          <div className="instructions">
-            <h2>Welcome to Quizzical!</h2>
-            <p>
-              Test your knowledge with 10 trivia questions from various
-              categories.
-            </p>
-            <ul>
-              <li>Click an answer to select it</li>
-              <li>Click "Check" when you're ready to see your results</li>
-              <li>Good luck!</li>
-            </ul>
-          </div>
+          <Instructions />
         ) : (
-          multipleChoiceElements
+          <>
+            {multipleChoiceElements}
+            {answersChecked && (
+              <div className="score">
+                You scored {score}/{trivia.length} correct answers!
+              </div>
+            )}
+          </>
         )}
       </div>
     </div>

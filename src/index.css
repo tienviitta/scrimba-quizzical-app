@@ -324,3 +324,34 @@ button:active {
 .answer-btn:active {
   transform: translateY(0);
 }
+
+.answer-btn.selected {
+  background-color: var(--color-gray-dark);
+  color: var(--color-white);
+}
+
+.answer-btn.correct {
+  background-color: var(--color-green);
+  color: var(--color-white);
+}
+
+.answer-btn.incorrect {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+}
+
+.answer-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.8;
+}
+
+.score {
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  padding: var(--spacing-lg);
+  background-color: var(--color-gray-light);
+  border-radius: var(--radius-md);
+  margin: var(--spacing-lg);
+}
