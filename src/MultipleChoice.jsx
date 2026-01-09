@@ -34,6 +34,23 @@ export default function MultipleChoice({
     return className;
   }
 
+  function getDifficultyIcon() {
+    switch (trivia.difficulty) {
+      case "easy":
+        return "fa-lightbulb";
+      case "medium":
+        return "fa-circle-half-stroke";
+      case "hard":
+        return "fa-skull";
+      default:
+        return "fa-circle-question";
+    }
+  }
+
+  function getDifficultyClass() {
+    return `difficulty-icon ${trivia.difficulty}`;
+  }
+
   const answerButtons = trivia.shuffledAnswers.map((answer, index) => (
     <button
       key={index}
@@ -47,6 +64,9 @@ export default function MultipleChoice({
 
   return (
     <div className="multiple-choice">
+      <i
+        className={`fa-solid ${getDifficultyIcon()} ${getDifficultyClass()}`}
+      ></i>
       <div className="question">{he.decode(trivia.question)}</div>
       <div className="answers">{answerButtons}</div>
     </div>

@@ -147,6 +147,64 @@ Currently, two official plugins are available:
 - [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
 - [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
+## Additional Features & Enhancement Ideas
+
+### Priority Features
+
+**Quiz Customization:**
+
+- **Category Selection** - Fetch categories from API and let users choose (Sports, History, Science, etc.)
+- **Difficulty Filter** - Let users select Easy/Medium/Hard before starting
+- **Question Type Filter** - Choose Multiple Choice, True/False, or both
+- **Number of Questions** - Let users choose 5/10/15/20 questions
+
+### User Experience Enhancements
+
+**Progress & Feedback:**
+
+- **Timer/Countdown** - Add optional time limit per question or for entire quiz
+- **Progress Indicator** - Show "Question 3/10" in the header
+- **Animated Transitions** - Smooth transitions between questions/states
+- **Confetti/Celebration** - Animate when user gets high score (8+/10)
+- **Explanation Mode** - Show fun facts about correct answers
+
+### Data & Persistence
+
+**Statistics & History:**
+
+- **Statistics Dashboard** - Track total quizzes, average score, best category, etc.
+- **Quiz History** - Show past quiz results with date/time
+- **Local Storage** - Save user preferences and statistics
+- **Streak Counter** - Track consecutive days of quizzing
+
+### Social & Competitive Features
+
+**Sharing & Competition:**
+
+- **Share Results** - Share score on social media or copy to clipboard
+- **Challenge Mode** - Generate shareable quiz code for friends to take same quiz
+- **Leaderboard** - Compare scores (local or with backend)
+- **Daily Challenge** - Same quiz for all users each day
+
+### Settings & Customization
+
+**Accessibility & Preferences:**
+
+- **Dark Mode** - Toggle light/dark theme
+- **Sound Effects** - Toggle sound for correct/incorrect answers
+- **Accessibility** - Font size adjustment, high contrast mode
+- **Language Support** - Multi-language interface
+
+### Advanced Features
+
+**Gameplay Mechanics:**
+
+- **Timed Mode** - Race against the clock for bonus points
+- **Hints System** - Remove wrong answers (limited uses)
+- **Multiplayer Mode** - Real-time quiz battles with friends
+- **Achievement System** - Unlock badges for milestones
+- **Difficulty Progression** - Automatically increase difficulty based on performance
+
 ## React Compiler
 
 The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).

@@ -166,7 +166,7 @@ function App() {
     fetchQuestions();
   }, [sessionToken]);
 
-  console.log(trivia);
+  // console.log(trivia);
 
   // Elements
   const multipleChoiceElements = trivia.map((item, index) => {

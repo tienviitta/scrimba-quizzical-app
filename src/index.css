@@ -296,6 +296,26 @@ button:active {
   gap: var(--spacing-md);
   padding: var(--spacing-lg);
   border-bottom: 2px solid var(--color-orange);
+  position: relative;
+}
+
+.difficulty-icon {
+  position: absolute;
+  top: var(--spacing-sm);
+  right: var(--spacing-sm);
+  font-size: 1.5rem;
+}
+
+.difficulty-icon.easy {
+  color: var(--color-green);
+}
+
+.difficulty-icon.medium {
+  color: var(--color-orange-light);
+}
+
+.difficulty-icon.hard {
+  color: var(--color-orange);
 }
 
 .question {
