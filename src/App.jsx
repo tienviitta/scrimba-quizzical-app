@@ -30,11 +30,15 @@ function App() {
   const [quizStarted, setQuizStarted] = useState(false);
   const [answersChecked, setAnswersChecked] = useState(false);
   const [selectedAnswers, setSelectedAnswers] = useState({});
+  const [categories, setCategories] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const [selectedDifficulty, setSelectedDifficulty] = useState("");
 
   // Handler to start quiz
   function handleStartQuiz() {
     if (!quizStarted) {
       setQuizStarted(true);
+      fetchNewQuestions();
     } else if (!answersChecked) {
       // Check answers
       setAnswersChecked(true);
@@ -52,9 +56,16 @@ function App() {
       setAnswersChecked(false);
       setSelectedAnswers({});
 
-      const response = await fetch(
-        `https://opentdb.com/api.php?amount=10&token=${sessionToken}`
-      );
+      // Build API URL with optional category and difficulty
+      let apiUrl = `https://opentdb.com/api.php?amount=10&token=${sessionToken}`;
+      if (selectedCategory) {
+        apiUrl += `&category=${selectedCategory}`;
+      }
+      if (selectedDifficulty) {
+        apiUrl += `&difficulty=${selectedDifficulty}`;
+      }
+
+      const response = await fetch(apiUrl);
       const data = await response.json();
 
       if (data.response_code === 0) {
@@ -85,12 +96,38 @@ function App() {
     }));
   }
 
+  // Handlers for category and difficulty selection
+  function handleCategoryChange(event) {
+    setSelectedCategory(event.target.value);
+  }
+
+  function handleDifficultyChange(event) {
+    setSelectedDifficulty(event.target.value);
+  }
+
   // Calculate score
   const score = answersChecked
     ? trivia.filter(
         (item, index) => selectedAnswers[index] === item.correct_answer
       ).length
     : 0;
+
+  // Fetch categories on mount
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const response = await fetch("https://opentdb.com/api_category.php");
+        const data = await response.json();
+        if (data.trivia_categories) {
+          setCategories(data.trivia_categories);
+        }
+      } catch (error) {
+        console.error("Error fetching categories:", error);
+      }
+    };
+
+    fetchCategories();
+  }, []);
 
   // Get or create session token
   useEffect(() => {
@@ -137,9 +174,17 @@ function App() {
       try {
         setLoading(true);
         setError(null);
-        const response = await fetch(
-          `https://opentdb.com/api.php?amount=10&token=${sessionToken}`
-        );
+
+        // Build API URL with optional category and difficulty
+        let apiUrl = `https://opentdb.com/api.php?amount=10&token=${sessionToken}`;
+        if (selectedCategory) {
+          apiUrl += `&category=${selectedCategory}`;
+        }
+        if (selectedDifficulty) {
+          apiUrl += `&difficulty=${selectedDifficulty}`;
+        }
+
+        const response = await fetch(apiUrl);
         const data = await response.json();
         // Handle different response codes
         if (data.response_code === 0) {
@@ -228,7 +273,17 @@ function App() {
         totalQuestions={trivia.length}
       />
       <div className="main-content">
-        {!quizStarted ? <Instructions /> : multipleChoiceElements}
+        {!quizStarted ? (
+          <Instructions
+            categories={categories}
+            selectedCategory={selectedCategory}
+            selectedDifficulty={selectedDifficulty}
+            onCategoryChange={handleCategoryChange}
+            onDifficultyChange={handleDifficultyChange}
+          />
+        ) : (
+          multipleChoiceElements
+        )}
       </div>
     </div>
   );
