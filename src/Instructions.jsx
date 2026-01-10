@@ -9,9 +9,10 @@ export default function Instructions({
     <div className="instructions">
       <h2>Welcome to Quizzical!</h2>
       <p>
-        Test your knowledge with 10 trivia questions from various categories.
+        Test your knowledge with 10 trivia questions from various selectable
+        categories. Please select a category and difficulty level to customize
+        your quiz or otherwise default to "Any":
       </p>
-
       <div className="quiz-options">
         <div className="option-group">
           <label htmlFor="category-select">Category:</label>
@@ -44,6 +45,7 @@ export default function Instructions({
         </div>
       </div>
 
+      <h3>How to Play</h3>
       <ul>
         <li>Click an answer to select it</li>
         <li>Click "Check" when you're ready to see your results</li>

@@ -161,55 +161,13 @@ function App() {
       } catch (error) {
         console.error("Error getting session token:", error);
         setError("Failed to initialize session. Please try again.");
-      }
-    };
-
-    getSessionToken();
-  }, []);
-
-  // Fetch questions when token is available
-  useEffect(() => {
-    if (!sessionToken) return;
-    const fetchQuestions = async () => {
-      try {
-        setLoading(true);
-        setError(null);
-
-        // Build API URL with optional category and difficulty
-        let apiUrl = `https://opentdb.com/api.php?amount=10&token=${sessionToken}`;
-        if (selectedCategory) {
-          apiUrl += `&category=${selectedCategory}`;
-        }
-        if (selectedDifficulty) {
-          apiUrl += `&difficulty=${selectedDifficulty}`;
-        }
-
-        const response = await fetch(apiUrl);
-        const data = await response.json();
-        // Handle different response codes
-        if (data.response_code === 0) {
-          // Success - questions retrieved
-          const triviaWithShuffledAnswers = data.results.map((item) => ({
-            ...item,
-            shuffledAnswers: [
-              ...item.incorrect_answers,
-              item.correct_answer,
-            ].sort(() => Math.random() - 0.5),
-          }));
-          setTrivia(triviaWithShuffledAnswers);
-        } else {
-          throw new Error(`API Error: Response code ${data.response_code}`);
-        }
-      } catch (error) {
-        console.error("Error fetching questions:", error);
-        setError("Failed to fetch questions. Please try again.");
       } finally {
         setLoading(false);
       }
     };
 
-    fetchQuestions();
-  }, [sessionToken]);
+    getSessionToken();
+  }, []);
 
   // console.log(trivia);
 
