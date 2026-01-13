@@ -49,6 +49,10 @@ export default function Instructions({
       <ul>
         <li>Click an answer to select it</li>
         <li>Click "Check" when you're ready to see your results</li>
+        <li>
+          Use the home icon (☰) at any time to return to the start and change
+          settings
+        </li>
         <li>Good luck!</li>
       </ul>
     </div>

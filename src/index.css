@@ -215,6 +215,23 @@ button:active {
   height: 60px;
 }
 
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.home-icon {
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: var(--color-black);
+  transition: opacity 0.3s ease;
+}
+
+.home-icon:hover {
+  opacity: 0.7;
+}
+
 .btn-start {
   background-color: var(--color-green);
   color: var(--color-black);

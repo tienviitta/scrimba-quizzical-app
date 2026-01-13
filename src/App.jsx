@@ -48,6 +48,14 @@ function App() {
     }
   }
 
+  // Handler to reset quiz and return to start
+  function handleResetQuiz() {
+    setQuizStarted(false);
+    setAnswersChecked(false);
+    setSelectedAnswers({});
+    setTrivia([]);
+  }
+
   // Function to fetch new questions
   async function fetchNewQuestions() {
     try {
@@ -210,6 +218,7 @@ function App() {
         <Header
           quizStarted={quizStarted}
           onStartQuiz={handleStartQuiz}
+          onResetQuiz={handleResetQuiz}
           answersChecked={answersChecked}
           score={score}
           totalQuestions={trivia.length}
@@ -226,6 +235,7 @@ function App() {
       <Header
         quizStarted={quizStarted}
         onStartQuiz={handleStartQuiz}
+        onResetQuiz={handleResetQuiz}
         answersChecked={answersChecked}
         score={score}
         totalQuestions={trivia.length}

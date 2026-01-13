@@ -271,8 +271,9 @@ Currently, two official plugins are available:
 
 **Quiz Customization:**
 
-- **Category Selection** - Fetch categories from API and let users choose (Sports, History, Science, etc.)
-- **Difficulty Filter** - Let users select Easy/Medium/Hard before starting
+- ✅ **Category Selection** - Fetch categories from API and let users choose (Sports, History, Science, etc.)
+- ✅ **Difficulty Filter** - Let users select Easy/Medium/Hard before starting
+- ✅ **Settings Menu** - Add hamburger menu icon to return to quiz start and change category/difficulty mid-quiz (`"fa-solid fa-bars"`)
 - **Question Type Filter** - Choose Multiple Choice, True/False, or both
 - **Number of Questions** - Let users choose 5/10/15/20 questions
 

@@ -1,6 +1,7 @@
 export default function Header({
   quizStarted,
   onStartQuiz,
+  onResetQuiz,
   answersChecked,
   score,
   totalQuestions,
@@ -13,7 +14,14 @@ export default function Header({
 
   return (
     <header className="header">
-      <span className="name">Quizzical</span>
+      <div className="header-left">
+        <i
+          className="fa-solid fa-bars home-icon"
+          onClick={onResetQuiz}
+          title="Return to start and change settings"
+        ></i>
+        <span className="name">Quizzical</span>
+      </div>
       {answersChecked && totalQuestions > 0 && (
         <span className="score-display">
           {score}/{totalQuestions}
